@@ -1,6 +1,7 @@
-import firebase from 'firebase/app'
-import 'firebase/firestore'
-import 'firebase/auth' 
+import firebase from 'firebase/app/dist/index.esm'
+import 'firebase/firestore/dist/index.esm'
+import 'firebase/auth/dist/index.esm' 
+
 const config = {
     apiKey: "AIzaSyBWQuWfbaXQer2xGzeJyIoNE_F072KX_zk",
     authDomain: "crwn-db-4fa8d.firebaseapp.com",
