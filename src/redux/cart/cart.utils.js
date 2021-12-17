@@ -12,3 +12,16 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
 
     return [...cartItems, {...cartItemToAdd, quantity:1}]
 }
+
+
+let cache = {};
+function memoizedAddTo80(n)
+{
+    if(n in cache){
+        return cache[n]
+    } else {
+        console.log('long time');
+        cache[n] = 5 + 80;
+        return cache[n];
+    }
+}
