@@ -14,14 +14,18 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
 }
 
 
-let cache = {};
-function memoizedAddTo80(n)
-{
-    if(n in cache){
-        return cache[n]
-    } else {
-        console.log('long time');
-        cache[n] = 5 + 80;
-        return cache[n];
+export const removeItemFromCart = (cartItems, cartItemToRemove) => {
+    const existingCartItem = cartItems.find(
+        cartItem => cartItem.id == cartItemToRemove.id
+    )
+
+    if(existingCartItem.quantity == 1){
+        return cartItems.filter(cartItem=> cartItem.id!=cartItemToRemove.id)
     }
+
+    return cartItems.map(
+        cartItem => cartItem.id == cartItemToRemove.id ? 
+        {...cartItem, quantity:cartItem.quantity-1}
+        : cartItem
+    )
 }
