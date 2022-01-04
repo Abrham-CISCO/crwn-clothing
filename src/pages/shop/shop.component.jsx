@@ -6,7 +6,7 @@ import CollectionPage from '../collection/collection.component';
 import {firestore, covertCollectionsSnapshotToMap} from '../../firebase/firebase.utils'
 import { updateCollecitons } from '../../redux/shop/shop.actions';
 import withSpinner from '../../components/with-spinner/with-spinner.component';
-const collectionsOverviewWithSpinner = withSpinner(CollectionsOverview);
+const collectionsOverviewWithSpinner = withSpinner(collectionsOverviewComponent);
 const CollectionPageWithSpinner = withSpinner(CollectionPage)
 
 class ShopPage extends React.Component{
@@ -32,9 +32,11 @@ class ShopPage extends React.Component{
 
     render(){
         const {match} = this.props;
+        const { loading } = this.state;
         return (<div className='shop-page'>
-        <Route exact path={`${match.path}`} component = {collectionsOverviewComponent}/>
-        <Route path={`${match.path}/:collectionId`} component={CollectionPage}/>
+            {/* render props is used to pass params to the component */}
+        <Route exact path={`${match.path}`} render = {(props) => <collectionsOverviewWithSpinner isLoading={loading} {...props}/>}/>
+        <Route path={`${match.path}/:collectionId`} render={(props)=> <CollectionPageWithSpinner isLoading={loading} {...props}/>}/>
     </div>)
     }
 }
