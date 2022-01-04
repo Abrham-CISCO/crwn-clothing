@@ -12,7 +12,7 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import Header from './components/header/header.component'
 import {auth, createUserProfileDocument} from './firebase/firebase.utils';
 import {connect} from 'react-redux'
-
+import { selectCollectionsForPreview } from './redux/shop/shop.selectors'
 import { setCurrentUser } from './redux/user/user.action'
 import {selectCurrentUser} from './redux/user/user.selector'
 
@@ -22,6 +22,7 @@ class App extends React.Component {
 
   componentDidMount()
   {
+    
     const {setCurrentUser} = this.props;
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth=> {
       if(userAuth){
@@ -36,6 +37,8 @@ class App extends React.Component {
       else
       {
         setCurrentUser(null)
+        addCollectionAndDocuments('collections',
+          collectionsArray.map(({title,items}) => ({title,items})))
       }
     })
   }
